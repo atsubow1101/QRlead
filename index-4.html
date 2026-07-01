@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>QRコード変換所</title>
+<meta name="theme-color" content="#F2F2F7" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="QRコード変換所" />
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="data:image/png;base64,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" />
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAADr0lEQVR4nNWWW09cVRTH11p7n33mAgMUxjaQmrSlbYItTRC0eIGmxbbhxTcT0zf9QPrYT0H0gRDThDYxIyqQ2hqoPOgA0mbkMsPczv3s5cPBycDMWGaSxrhynvY5+/9bl732Ojg0Mgtv0uiNqv8XAERExOafUosXpwcgouv6rucDADMzwz8PA0DVckOt22XIE+qXLw7OTI85jodUJ8VAglzXm5vPeJ7fKsTXAAAAEGamx+Yf/ZTbLZjKqC0CQKlkzc5MfHzz2rcLS72pZKh12wBmVobhuF5ut8DM+cNyGGpEZNaJmBlqvb2ze+nC0Ol9bxIBMyOiqYxCsfzF5/c+uT1uVW2ljK8fzi2tvDBNFRWjc0DNgiC8d3v87sx04Bal2fPd4urjzLO2Ul+z5n2AiJWK7TnFg0LZc0qe315h6615BMxsmoaK9fT3oTS7O1ZvAmAAQIjHza8ezi08XvG9gBB/+HmtuyvOUWu0MCICAN1wuo4BEEEQlcpWGOqllfUnmWdIyAzdXXHb8SzbMaRsxahULAZIJmItAURYtVzX9WbvTGzt7MViBsJRZpjZst2P3n/n+XpWSsFwkqG1nvpglBB/XP2N6Fg+6/pAs6nk3Hxm6ua14QuD9Z4ysJTy+Xp2+elGMhHTmiOHABARPD84l+6bmrwODH++3Nt+uauUUdteBwAQRJ7nf7Ow1CwHLIRIJmLRTkS0bDcMNSIwQ/6wnN3KEeF+viilqHcOGwcOnQiyLo7Id0R0XW9yYuTq8Pkw1PlCaWFxOQw0AytlnLhzm/SB1jps9kTqRzDEsdHh5acbj56sDl8c6k0llTIScbPxRu9w4AiiquWsbWz9+mLzIF8SgqK0EJ0cJ80b7d8NEYIgAMAvH9yvVp30QE+l6jiOB8AMYBjSVLJWhSY1OAUAAcAwRLq/lxAPCiXLdkeuvC2lJIF/7RZ2Xu1LSRGj7RQhou8HpXK1VLay27k/tnK5vcJ7Y1enJkdTqcTAmZ7PPp2Ox1UYNhzT06oHwVsDvTeuX8lu7vy++co0let5MVNlltcWv/9FGbK/LxUzlW170ahqLwJEdFz//p1xRLh7612ioyNPiIKICIlQiGOabReZEIvF6tn0Gct2tNYAJIjyh+VbH944P5g2Y6qvp6tqOdHdBx0UmZmFoMFz6f2DQ8s+EtLMZ9N9ypCImD8sVyqWIOLOAADADL7vSynrW973A80MAFIKKah2TDvsg8b5rGp/IcenRieASOS1K5H9/39+/wZDod32uGToGwAAAABJRU5ErkJggg==" />
+<style>
+  :root {
+    --ios-blue: #007AFF;
+    --ios-bg: #F2F2F7;
+    --card-bg: #FFFFFF;
+    --label: #1C1C1E;
+    --secondary-label: #8A8A8E;
+    --separator: #E5E5EA;
+    --destructive: #FF3B30;
+    --success: #34C759;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ios-bg);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    color: var(--label);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  .wrap { width: 100%; max-width: 380px; }
+  h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+  .subtitle { color: var(--secondary-label); font-size: 14px; margin: 4px 0 0; }
+  .header { margin-bottom: 20px; padding: 0 4px; }
+
+  .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .input-area { padding: 16px 16px 12px; }
+  textarea {
+    width: 100%; border: none; outline: none; resize: none;
+    font-family: inherit; font-size: 15px; color: var(--label); background: transparent;
+  }
+  textarea::placeholder { color: #C7C7CC; }
+  .row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; border-top: 1px solid var(--separator);
+  }
+  .row span { font-size: 15px; }
+  .swatches { display: flex; gap: 8px; }
+  input[type="color"] {
+    width: 28px; height: 28px; border-radius: 14px; border: none; padding: 0; cursor: pointer;
+  }
+  input[type="color"]#bgColor { border: 1px solid var(--separator); }
+
+  .generate-btn {
+    width: 100%; margin-top: 16px; padding: 14px; border: none; border-radius: 14px;
+    background: #C7C7CC; color: #fff; font-size: 17px; font-weight: 600;
+    font-family: inherit; cursor: pointer; transition: background 0.15s;
+  }
+  .generate-btn.active { background: var(--ios-blue); }
+  .generate-btn:active.active { opacity: 0.8; }
+
+  .result-card {
+    margin-top: 20px; padding: 20px 16px; background: var(--card-bg); border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: none; flex-direction: column; align-items: center;
+    animation: appear 0.35s ease-out;
+  }
+  @keyframes appear { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+  .qr-frame {
+    border-radius: 14px; border: 1px solid var(--separator); padding: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #qrCanvas { width: 220px; height: 220px; display: block; image-rendering: pixelated; }
+  .qr-text {
+    color: var(--secondary-label); font-size: 12px; text-align: center; margin-top: 12px;
+    padding: 0 8px; word-break: break-all; max-width: 260px;
+  }
+  .verify {
+    display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 12px;
+  }
+  .verify.ok { color: var(--success); }
+  .verify.fail { color: var(--destructive); }
+  .too-long { display: flex; flex-direction: column; align-items: center; padding: 24px 8px; }
+  .too-long p { font-size: 14px; text-align: center; margin-top: 12px; max-width: 240px; }
+
+  .actions { display: flex; justify-content: center; gap: 24px; margin-top: 16px; }
+  .icon-btn { display: flex; flex-direction: column; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; font-family: inherit; }
+  .icon-circle {
+    width: 44px; height: 44px; border-radius: 22px; background: rgba(0,122,255,0.10);
+    color: var(--ios-blue); display: flex; align-items: center; justify-content: center;
+  }
+  .icon-btn span { font-size: 12px; color: var(--label); }
+
+  .history-section { margin-top: 28px; }
+  .history-header { display: flex; justify-content: space-between; align-items: center; padding: 0 4px; margin-bottom: 8px; }
+  .history-header span { color: var(--secondary-label); font-size: 13px; text-transform: uppercase; font-weight: 500; }
+  .history-header button { color: var(--ios-blue); font-size: 13px; font-weight: 500; background: none; border: none; cursor: pointer; font-family: inherit; }
+  .history-list { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .history-item { display: flex; align-items: center; padding: 12px 16px; gap: 8px; }
+  .history-item + .history-item { border-top: 1px solid var(--separator); }
+  .history-item button.load { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 8px; background: none; border: none; text-align: left; min-width: 0; cursor: pointer; font-family: inherit; }
+  .history-item button.load span { font-size: 15px; color: var(--label); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .history-item button.del { background: none; border: none; color: #C7C7CC; cursor: pointer; flex-shrink: 0; }
+
+  .footnote { font-size: 12px; text-align: center; margin-top: 32px; padding: 0 16px; color: #C7C7CC; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>QRコード変換所</h1>
+    <p class="subtitle">テキストやURLからQRコードを作成</p>
+  </div>
+
+  <div class="card">
+    <div class="input-area">
+      <textarea id="textInput" rows="2" placeholder="https://example.com"></textarea>
+    </div>
+    <div class="row">
+      <span>どの色が好き？</span>
+      <div class="swatches">
+        <input type="color" id="fgColor" value="#000000" aria-label="QRの色" />
+        <input type="color" id="bgColor" value="#ffffff" aria-label="背景の色" />
+      </div>
+    </div>
+  </div>
+
+  <button class="generate-btn" id="generateBtn">QRコードを作成</button>
+
+  <div class="result-card" id="resultCard"></div>
+
+  <div class="history-section" id="historySection" style="display:none;">
+    <div class="history-header">
+      <span>最近作成したもの</span>
+      <button id="clearHistoryBtn">すべて削除</button>
+    </div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+
+  <p class="footnote">外部サービスを使わず、アプリ内だけでQRコードを生成しています</p>
+</div>
+
+<script>
+/* =========================================================================
+   QRコード生成ロジック(外部通信なし)
+   バージョン1〜6・誤り訂正レベルM・バイトモード(UTF-8)対応
+   ========================================================================= */
+const GF_EXP = new Array(512);
+const GF_LOG = new Array(256);
+(function initGaloisField() {
+  let x = 1;
+  for (let i = 0; i < 255; i++) {
+    GF_EXP[i] = x; GF_LOG[x] = i;
+    x <<= 1; if (x & 0x100) x ^= 0x11d;
+  }
+  for (let i = 255; i < 512; i++) GF_EXP[i] = GF_EXP[i - 255];
+})();
+function gfMul(a, b) { if (a === 0 || b === 0) return 0; return GF_EXP[GF_LOG[a] + GF_LOG[b]]; }
+function polyMultiply(p1, p2) {
+  const result = new Array(p1.length + p2.length - 1).fill(0);
+  for (let i = 0; i < p1.length; i++) for (let j = 0; j < p2.length; j++) result[i + j] ^= gfMul(p1[i], p2[j]);
+  return result;
+}
+function generatorPolynomial(degree) {
+  let poly = [1];
+  for (let i = 0; i < degree; i++) poly = polyMultiply(poly, [1, GF_EXP[i]]);
+  return poly;
+}
+function rsEncode(dataBytes, ecCount) {
+  const generator = generatorPolynomial(ecCount);
+  const buffer = dataBytes.concat(new Array(ecCount).fill(0));
+  for (let i = 0; i < dataBytes.length; i++) {
+    const coef = buffer[i];
+    if (coef !== 0) for (let j = 0; j < generator.length; j++) buffer[i + j] ^= gfMul(generator[j], coef);
+  }
+  return buffer.slice(dataBytes.length);
+}
+
+const TOTAL_CODEWORDS = [26, 44, 70, 100, 134, 172];
+const EC_PER_BLOCK = [10, 16, 26, 18, 24, 16];
+const NUM_BLOCKS = [1, 1, 1, 2, 2, 4];
+const DATA_CODEWORDS = TOTAL_CODEWORDS.map((t, i) => t - EC_PER_BLOCK[i] * NUM_BLOCKS[i]);
+const BYTE_CAPACITY = DATA_CODEWORDS.map((d) => Math.floor((d * 8 - 12) / 8));
+const ALIGNMENT_CENTER = [null, 18, 22, 26, 30, 34];
+const MAX_BYTES = BYTE_CAPACITY[BYTE_CAPACITY.length - 1];
+
+function selectVersion(byteLength) {
+  for (let v = 1; v <= 6; v++) if (BYTE_CAPACITY[v - 1] >= byteLength) return v;
+  return null;
+}
+function blockLengthLayout(totalLength, numBlocks) {
+  const blockSize = Math.floor(totalLength / numBlocks);
+  const group1Count = numBlocks - (totalLength % numBlocks);
+  return Array.from({ length: numBlocks }, (_, b) => (b < group1Count ? blockSize : blockSize + 1));
+}
+function splitIntoBlocks(bytes, numBlocks) {
+  const lengths = blockLengthLayout(bytes.length, numBlocks);
+  const blocks = []; let idx = 0;
+  for (const len of lengths) { blocks.push(bytes.slice(idx, idx + len)); idx += len; }
+  return blocks;
+}
+function interleaveBlocks(blocks) {
+  const maxLen = Math.max(...blocks.map((b) => b.length));
+  const result = [];
+  for (let i = 0; i < maxLen; i++) for (const block of blocks) if (i < block.length) result.push(block[i]);
+  return result;
+}
+function deinterleave(flat, lengths) {
+  const maxLen = Math.max(...lengths);
+  const blocks = lengths.map(() => []);
+  let idx = 0;
+  for (let i = 0; i < maxLen; i++) for (let b = 0; b < lengths.length; b++) if (i < lengths[b]) { blocks[b].push(flat[idx]); idx++; }
+  return blocks;
+}
+function buildDataCodewords(bytes, dataCodewordsCount) {
+  const bits = [];
+  const pushBits = (value, length) => { for (let i = length - 1; i >= 0; i--) bits.push((value >> i) & 1); };
+  pushBits(0b0100, 4);
+  pushBits(bytes.length, 8);
+  for (const byte of bytes) pushBits(byte, 8);
+  const totalBits = dataCodewordsCount * 8;
+  const terminatorLength = Math.max(0, Math.min(4, totalBits - bits.length));
+  for (let i = 0; i < terminatorLength; i++) bits.push(0);
+  while (bits.length % 8 !== 0) bits.push(0);
+  const codewords = [];
+  for (let i = 0; i < bits.length; i += 8) {
+    let byte = 0;
+    for (let j = 0; j < 8; j++) byte = (byte << 1) | (bits[i + j] || 0);
+    codewords.push(byte);
+  }
+  const padBytes = [0xec, 0x11]; let p = 0;
+  while (codewords.length < dataCodewordsCount) { codewords.push(padBytes[p % 2]); p++; }
+  return codewords;
+}
+function buildFormatBits(maskPattern) {
+  const ecLevelBits = 0b00;
+  const data = (ecLevelBits << 3) | maskPattern;
+  const generator = 0b10100110111;
+  let reg = data << 10;
+  for (let i = 4; i >= 0; i--) if ((reg >> (10 + i)) & 1) reg ^= generator << i;
+  const remainder = reg & 0x3ff;
+  const bch = (data << 10) | remainder;
+  return bch ^ 0b101010000010010;
+}
+function buildFunctionPatterns(version) {
+  const size = version * 4 + 17;
+  const matrix = Array.from({ length: size }, () => new Array(size).fill(0));
+  const reserved = Array.from({ length: size }, () => new Array(size).fill(false));
+  const setModule = (row, col, value) => {
+    if (row < 0 || row >= size || col < 0 || col >= size) return;
+    matrix[row][col] = value ? 1 : 0; reserved[row][col] = true;
+  };
+  const placeFinder = (row, col) => {
+    for (let r = -1; r <= 7; r++) for (let c = -1; c <= 7; c++) {
+      const rr = row + r, cc = col + c;
+      if (rr < 0 || rr >= size || cc < 0 || cc >= size) continue;
+      let dark = false;
+      if (r >= 0 && r <= 6 && c >= 0 && c <= 6) {
+        const isBorder = r === 0 || r === 6 || c === 0 || c === 6;
+        const isInner = r >= 2 && r <= 4 && c >= 2 && c <= 4;
+        dark = isBorder || isInner;
+      }
+      setModule(rr, cc, dark);
+    }
+  };
+  const placeAlignment = (row, col) => {
+    for (let r = -2; r <= 2; r++) for (let c = -2; c <= 2; c++) {
+      const isBorder = r === -2 || r === 2 || c === -2 || c === 2;
+      setModule(row + r, col + c, isBorder || (r === 0 && c === 0));
+    }
+  };
+  placeFinder(0, 0); placeFinder(0, size - 7); placeFinder(size - 7, 0);
+  for (let i = 8; i < size - 8; i++) {
+    if (!reserved[6][i]) setModule(6, i, i % 2 === 0);
+    if (!reserved[i][6]) setModule(i, 6, i % 2 === 0);
+  }
+  const centerCoord = ALIGNMENT_CENTER[version - 1];
+  if (centerCoord) placeAlignment(centerCoord, centerCoord);
+  setModule(4 * version + 9, 8, true);
+  for (let i = 0; i <= 8; i++) {
+    if (i !== 6) reserved[8][i] = true;
+    if (i !== 6) reserved[i][8] = true;
+  }
+  for (let i = 0; i < 8; i++) { reserved[8][size - 1 - i] = true; reserved[size - 1 - i][8] = true; }
+  return { matrix, reserved, size };
+}
+const FORMAT_COORDS_A = [[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,7],[8,8],[7,8],[5,8],[4,8],[3,8],[2,8],[1,8],[0,8]];
+function buildMatrix(version, dataCodewords) {
+  const { matrix, reserved, size } = buildFunctionPatterns(version);
+  const formatBits = buildFormatBits(0);
+  for (let i = 0; i < 15; i++) { const [r, c] = FORMAT_COORDS_A[i]; matrix[r][c] = (formatBits >> (14 - i)) & 1; }
+  for (let i = 0; i < 8; i++) matrix[8][size - 1 - i] = (formatBits >> (14 - i)) & 1;
+  for (let i = 0; i < 7; i++) matrix[size - 1 - i][8] = (formatBits >> i) & 1;
+  const totalBits = dataCodewords.length * 8;
+  const getBit = (idx) => {
+    if (idx >= totalBits) return 0;
+    const byteIdx = idx >> 3, bitOffset = 7 - (idx % 8);
+    return (dataCodewords[byteIdx] >> bitOffset) & 1;
+  };
+  let bitIndex = 0, direction = -1, col = size - 1;
+  while (col > 0) {
+    if (col === 6) col--;
+    for (let i = 0; i < size; i++) {
+      const row = direction === -1 ? size - 1 - i : i;
+      for (const c of [col, col - 1]) {
+        if (!reserved[row][c]) {
+          const bit = getBit(bitIndex); bitIndex++;
+          const mask = (row + c) % 2 === 0 ? 1 : 0;
+          matrix[row][c] = bit ^ mask;
+        }
+      }
+    }
+    direction *= -1; col -= 2;
+  }
+  return { matrix, size };
+}
+function generateQrMatrix(text) {
+  const bytes = Array.from(new TextEncoder().encode(text));
+  const version = selectVersion(bytes.length);
+  if (!version) return null;
+  const idx = version - 1;
+  const rawData = buildDataCodewords(bytes, DATA_CODEWORDS[idx]);
+  const dataBlocks = splitIntoBlocks(rawData, NUM_BLOCKS[idx]);
+  const ecBlocks = dataBlocks.map((block) => rsEncode(block, EC_PER_BLOCK[idx]));
+  const finalData = interleaveBlocks(dataBlocks).concat(interleaveBlocks(ecBlocks));
+  const { matrix, size } = buildMatrix(version, finalData);
+  return { matrix, size, version };
+}
+function verifyMatrix(matrix, size, version, originalText) {
+  const { reserved } = buildFunctionPatterns(version);
+  const bits = [];
+  let direction = -1, col = size - 1;
+  while (col > 0) {
+    if (col === 6) col--;
+    for (let i = 0; i < size; i++) {
+      const row = direction === -1 ? size - 1 - i : i;
+      for (const c of [col, col - 1]) {
+        if (!reserved[row][c]) { const mask = (row + c) % 2 === 0 ? 1 : 0; bits.push(matrix[row][c] ^ mask); }
+      }
+    }
+    direction *= -1; col -= 2;
+  }
+  const codewords = [];
+  for (let i = 0; i < bits.length; i += 8) {
+    let byte = 0;
+    for (let j = 0; j < 8; j++) byte = (byte << 1) | (bits[i + j] || 0);
+    codewords.push(byte);
+  }
+  const idx = version - 1;
+  const dataCount = DATA_CODEWORDS[idx], numBlocks = NUM_BLOCKS[idx], ecPerBlock = EC_PER_BLOCK[idx];
+  const interleavedData = codewords.slice(0, dataCount);
+  const interleavedEc = codewords.slice(dataCount, dataCount + ecPerBlock * numBlocks);
+  const dataLengths = blockLengthLayout(dataCount, numBlocks);
+  const dataBlocks = deinterleave(interleavedData, dataLengths);
+  const ecLengths = new Array(numBlocks).fill(ecPerBlock);
+  const ecBlocks = deinterleave(interleavedEc, ecLengths);
+  let ecValid = true;
+  for (let b = 0; b < numBlocks; b++) {
+    const recomputed = rsEncode(dataBlocks[b], ecPerBlock);
+    for (let k = 0; k < ecPerBlock; k++) if (recomputed[k] !== ecBlocks[b][k]) ecValid = false;
+  }
+  const flatData = dataBlocks.flat();
+  const flatBits = [];
+  for (const byte of flatData) for (let j = 7; j >= 0; j--) flatBits.push((byte >> j) & 1);
+  let bitPos = 0;
+  const readBits = (n) => { let v = 0; for (let k = 0; k < n; k++) { v = (v << 1) | (flatBits[bitPos] || 0); bitPos++; } return v; };
+  const mode = readBits(4);
+  const length = readBits(8);
+  const bytesOut = [];
+  for (let i = 0; i < length; i++) bytesOut.push(readBits(8));
+  let decodedText = "";
+  try { decodedText = new TextDecoder().decode(new Uint8Array(bytesOut)); } catch (e) { decodedText = ""; }
+  return { ok: ecValid && mode === 0b0100 && decodedText === originalText };
+}
+function drawQrToCanvas(canvas, matrix, size, moduleSize, fg, bg) {
+  const quietZone = 4;
+  const totalModules = size + quietZone * 2;
+  const px = totalModules * moduleSize;
+  canvas.width = px; canvas.height = px;
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, px, px);
+  ctx.fillStyle = fg;
+  for (let r = 0; r < size; r++) for (let c = 0; c < size; c++)
+    if (matrix[r][c]) ctx.fillRect((c + quietZone) * moduleSize, (r + quietZone) * moduleSize, moduleSize, moduleSize);
+}
+
+/* ========================================================================= */
+/* UI ロジック */
+
+const ICONS = {
+  download: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+  link: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  check: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  share: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+  chevron: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
+  x: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7C7CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  alert: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  alertSm: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+  shield: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>',
+};
+
+const textInput = document.getElementById("textInput");
+const fgColor = document.getElementById("fgColor");
+const bgColor = document.getElementById("bgColor");
+const generateBtn = document.getElementById("generateBtn");
+const resultCard = document.getElementById("resultCard");
+const historySection = document.getElementById("historySection");
+const historyList = document.getElementById("historyList");
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+
+let history = [];
+try { history = JSON.parse(localStorage.getItem("qr-history") || "[]"); } catch (e) { history = []; }
+
+function saveHistory() {
+  try { localStorage.setItem("qr-history", JSON.stringify(history)); } catch (e) { /* 保存できなくても生成には影響しない */ }
+}
+
+function updateGenerateBtn() {
+  generateBtn.classList.toggle("active", textInput.value.trim().length > 0);
+}
+textInput.addEventListener("input", updateGenerateBtn);
+updateGenerateBtn();
+
+function renderHistory() {
+  if (history.length === 0) { historySection.style.display = "none"; return; }
+  historySection.style.display = "block";
+  historyList.innerHTML = "";
+  history.forEach((h) => {
+    const item = document.createElement("div");
+    item.className = "history-item";
+    item.innerHTML = `
+      <button class="load">
+        <span>${escapeHtml(h.text)}</span>
+        ${ICONS.chevron}
+      </button>
+      <button class="del">${ICONS.x}</button>
+    `;
+    item.querySelector(".load").addEventListener("click", () => {
+      textInput.value = h.text;
+      fgColor.value = h.fg || "#000000";
+      bgColor.value = h.bg || "#ffffff";
+      updateGenerateBtn();
+      runGenerate(h.text, h.fg || "#000000", h.bg || "#ffffff");
+    });
+    item.querySelector(".del").addEventListener("click", () => {
+      history = history.filter((x) => x.id !== h.id);
+      saveHistory();
+      renderHistory();
+    });
+    historyList.appendChild(item);
+  });
+}
+clearHistoryBtn.addEventListener("click", () => { history = []; saveHistory(); renderHistory(); });
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+let currentQr = null; // { matrix, size, activeText, activeFg, activeBg }
+
+function runGenerate(t, f, b) {
+  const data = generateQrMatrix(t);
+  if (!data) {
+    resultCard.style.display = "flex";
+    resultCard.innerHTML = `
+      <div class="too-long">
+        ${ICONS.alert}
+        <p>文字数が多すぎてQRコードにできません(${MAX_BYTES}バイトまで)。短縮URLなどを使って短くしてみてください。</p>
+      </div>
+    `;
+    currentQr = null;
+    return;
+  }
+  const check = verifyMatrix(data.matrix, data.size, data.version, t);
+  currentQr = { matrix: data.matrix, size: data.size, activeText: t, activeFg: f, activeBg: b };
+
+  resultCard.style.display = "flex";
+  resultCard.innerHTML = `
+    <div class="qr-frame" style="background:${b}">
+      <canvas id="qrCanvas"></canvas>
+    </div>
+    <p class="qr-text">${escapeHtml(t)}</p>
+    <div class="verify ${check.ok ? "ok" : "fail"}">
+      ${check.ok ? ICONS.shield : ICONS.alertSm}
+      <span>${check.ok ? "内容を検証済み" : "検証に失敗しました。作り直してください"}</span>
+    </div>
+    <div class="actions">
+      <button class="icon-btn" id="downloadBtn"><div class="icon-circle">${ICONS.download}</div><span>保存</span></button>
+      <button class="icon-btn" id="copyBtn"><div class="icon-circle">${ICONS.link}</div><span>コピー</span></button>
+      ${navigator.share ? `<button class="icon-btn" id="shareBtn"><div class="icon-circle">${ICONS.share}</div><span>共有</span></button>` : ""}
+    </div>
+  `;
+  const canvas = document.getElementById("qrCanvas");
+  canvas.style.width = "220px";
+  canvas.style.height = "220px";
+  drawQrToCanvas(canvas, data.matrix, data.size, 8, f, b);
+
+  document.getElementById("downloadBtn").addEventListener("click", handleDownload);
+  document.getElementById("copyBtn").addEventListener("click", handleCopy);
+  const shareBtn = document.getElementById("shareBtn");
+  if (shareBtn) shareBtn.addEventListener("click", handleShare);
+
+  resultCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function handleDownload() {
+  if (!currentQr) return;
+  const offscreen = document.createElement("canvas");
+  drawQrToCanvas(offscreen, currentQr.matrix, currentQr.size, 20, currentQr.activeFg, currentQr.activeBg);
+  offscreen.toBlob((blob) => {
+    if (!blob) return;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `qr-${currentQr.activeText.replace(/[^a-z0-9]/gi, "-").slice(0, 30) || "code"}.png`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }, "image/png");
+}
+
+function handleCopy() {
+  if (!currentQr) return;
+  navigator.clipboard.writeText(currentQr.activeText).then(() => {
+    const btn = document.getElementById("copyBtn");
+    if (!btn) return;
+    btn.innerHTML = `<div class="icon-circle">${ICONS.check}</div><span>コピー済み</span>`;
+    setTimeout(() => {
+      const b = document.getElementById("copyBtn");
+      if (b) b.innerHTML = `<div class="icon-circle">${ICONS.link}</div><span>コピー</span>`;
+    }, 1500);
+  }).catch(() => {});
+}
+
+function handleShare() {
+  if (!currentQr || !navigator.share) return;
+  navigator.share({ text: currentQr.activeText }).catch(() => {});
+}
+
+generateBtn.addEventListener("click", () => {
+  const trimmed = textInput.value.trim();
+  if (!trimmed) return;
+  const f = fgColor.value, b = bgColor.value;
+  runGenerate(trimmed, f, b);
+
+  const entry = { id: `${Date.now()}`, text: trimmed, fg: f, bg: b, timestamp: Date.now() };
+  history = [entry, ...history.filter((h) => h.text !== trimmed)].slice(0, 12);
+  saveHistory();
+  renderHistory();
+});
+
+renderHistory();
+</script>
+</body>
+</html>
